@@ -20,24 +20,18 @@ jobs:
         distribution: temurin
         java-version: '17'
 
-    # Create a Gradle wrapper on the runner (so you don't need gradlew in the repo)
-    - name: Install Gradle 7.6.3 and generate wrapper
-      run: |
-        curl -s "https://get.sdkman.io" | bash
-        source "$HOME/.sdkman/bin/sdkman-init.sh"
-        sdk install gradle 7.6.3
-        gradle --version
-        gradle wrapper --gradle-version 7.6.3
-
-    - name: Make gradlew executable
-      run: chmod +x gradlew
+    # Use Gradle without needing gradlew in the repo
+    - name: Set up Gradle 7.6.3
+      uses: gradle/actions/setup-gradle@v3
+      with:
+        gradle-version: 7.6.3
 
     - name: Build Release APK
-      run: ./gradlew assembleRelease
+      run: gradle assembleRelease
 
-    - name: Upload APK artifact
+    - name: Upload APK(s)
       uses: actions/upload-artifact@v4
       with:
-        name: app-release
-        path: app/build/outputs/apk/release/app-release.apk
+        name: android-apk
+        path: app/build/outputs/apk/**/*.apk
         
