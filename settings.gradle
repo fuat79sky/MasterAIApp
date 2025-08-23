@@ -1,0 +1,2 @@
+rootProject.name = "MasterAIApp"
+include(":app")
