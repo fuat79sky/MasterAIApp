@@ -35,3 +35,8 @@ jobs:
       with:
         name: MasterAIApp-APK
         path: app/build/outputs/apk/release/*.apk
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
