@@ -8,3 +8,37 @@ This repo is set up to build on GitHub Actions.
 ![Android CI](https://github.com/fuat79sky/MasterAIApp/actions/workflows/android.yml/badge.svg)
 
 ## Project structure
+
+name: Android CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        distribution: temurin
+        java-version: '17'
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x ./gradlew
+
+    - name: Build Release APK
+      run: ./gradlew assembleRelease
+
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: MasterAIApp-APK
+        path: app/build/outputs/apk/release/*.apk
