@@ -1,14 +1,9 @@
-
-        
-
-
 name: Android CI
 
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -24,8 +19,16 @@ jobs:
         distribution: temurin
         java-version: '17'
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x ./gradlew
+    # Install Gradle CLI and generate wrapper
+    - name: Install Gradle and generate wrapper
+      run: |
+        curl -s "https://get.sdkman.io" | bash
+        source "$HOME/.sdkman/bin/sdkman-init.sh"
+        sdk install gradle 7.6.3
+        gradle wrapper --gradle-version 7.6.3
+
+    - name: Make gradlew executable
+      run: chmod +x gradlew
 
     - name: Build Release APK
       run: ./gradlew assembleRelease
@@ -35,8 +38,3 @@ jobs:
       with:
         name: MasterAIApp-APK
         path: app/build/outputs/apk/release/*.apk
-
-on:
-  push:
-    branches: [ "main" ]
-  workflow_dispatch:
