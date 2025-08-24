@@ -1,7 +1,1 @@
-#!/usr/bin/env sh
-# Minimal Gradle launcher for Linux/macOS
-APP_HOME=$(cd "$(dirname "$0")" && pwd -P)
-JAVA_EXE="${JAVA_HOME}/bin/java"
-[ -x "$JAVA_EXE" ] || JAVA_EXE=java
-CLASSPATH="$APP_HOME/gradle/wrapper/gradle-wrapper.jar"
-exec "$JAVA_EXE" -Dfile.encoding=UTF-8 -cp "$CLASSPATH" org.gradle.wrapper.GradleWrapperMain "$@"
+
