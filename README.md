@@ -1,8 +1,7 @@
 # MasterAIApp
 
-Minimal Android template (Kotlin) with Gradle **7.x** and AGP **7.4.2**.  
-This repo is set up to build on GitHub Actions.
+Minimal Android template (Kotlin) with Gradle **8.7** and AGP **8.5.2**.  
+This repo is prepared for Android Studio.  
+CI builds are temporarily disabled until Gradle wrapper is committed.
 
-![Android CI](https://github.com/fuat79sky/MasterAIApp/actions/workflows/android.yml/badge.svg)
-
-## Project structure 
+## Project structure
