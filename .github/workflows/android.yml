@@ -1,8 +1,21 @@
-name: Android CI (disabled)
-on: { workflow_dispatch: {} }
+name: Setup Gradle Wrapper
+
+on:
+  workflow_dispatch:
+
 jobs:
-  build:
-    if: false
+  generate-wrapper:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Disabled until Gradle wrapper is added."
+      - uses: actions/checkout@v4
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Generate Gradle Wrapper
+        run: gradle wrapper --gradle-version 8.7
+      - name: Commit wrapper
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Add Gradle wrapper"
